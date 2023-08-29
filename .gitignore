@@ -351,4 +351,9 @@ proj.amazon-as/.idea
 proj.amazon-as/app/libs
 proj.win8.1-universal/SlotGame.VC.VC.opendb
 proj.win8.1-universal/SlotGame.VC.db
-configs.sh
+configs.sh./cocos2d/prebuilt/android/arm64-v8a/libets.a
+./cocos2d/prebuilt/android/arm64-v8a/libcc_core.a
+./proj.android/app/build/intermediates/cxx/Debug/25146z34/obj/local/armeabi-v7a/libfairygui.a
+./proj.android/app/build/intermediates/cxx/Debug/25146z34/obj/local/armeabi-v7a/libcocos2dcpp.so
+./proj.android/app/build/intermediates/merged_native_libs/debug/out/lib/armeabi-v7a/libcocos2dcpp.so
+./proj.android/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcocos2dcpp.so
