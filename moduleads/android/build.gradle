@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion PROP_BUILD_TOOLS_VERSION.toString()
+
+    defaultConfig {
+        manifestPlaceholders = [onesignal_app_id: "",
+                                onesignal_google_project_number: ""]
+        minSdkVersion PROP_MIN_SDK_VERSION.toInteger()
+        targetSdkVersion PROP_TARGET_SDK_VERSION.toInteger()
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets.main {
+        aidl.srcDir "src"
+        java.srcDir "src"
+        manifest.srcFile "AndroidManifest.xml"
+        jniLibs.srcDirs  "libs"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    useLibrary 'org.apache.http.legacy'
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+configurations {
+    provided
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation project(":libcocos2dx")
+    api 'com.treebo:internetavailabilitychecker:1.0.4'
+    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation ('com.applovin:applovin-sdk:11.11.2')
+    implementation 'com.applovin.mediation:adcolony-adapter:4.8.0.4'
+    implementation 'com.applovin.mediation:amazon-adapter:6.0.0.0.1'
+    implementation 'com.applovin.mediation:chartboost-adapter:9.4.0.0'
+    implementation 'com.applovin.mediation:facebook-adapter:6.15.0.0'
+    implementation ('com.applovin.mediation:fyber-adapter:8.2.3.3')
+    implementation ('com.applovin.mediation:google-adapter:22.2.0.0')
+    implementation ('com.applovin.mediation:ironsource-adapter:7.3.1.1.0')
+    implementation 'com.applovin.mediation:smaato-adapter:22.2.0.0'
+    implementation 'com.applovin.mediation:unityads-adapter:4.8.0.0'
+    implementation 'com.applovin.mediation:vungle-adapter:6.12.1.1'
+}

@@ -1,0 +1,57 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/'}
+        maven { url "https://maven.google.com" }
+
+    }
+    dependencies {
+//        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.2'
+        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.7'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://maven.pkg.github.com/deltaDNA/android-sdk'
+            credentials {
+                username = "shaniamjad6"
+                password = "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"
+            }
+        }
+        maven { url "https://maven.google.com" }
+        maven { url "https://cboost.jfrog.io/artifactory/chartboost-ads/" }
+
+        maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" }
+        maven { url "https://android-sdk.is.com" }
+        maven { url 'https://jitpack.io' }
+        maven { url "https://verve.jfrog.io/artifactory/verve-gradle-release" }
+    }
+    ext {
+        onesignal_app_id = "abd16999-0222-4227-89ef-222ed613c463"
+    }
+
+
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.core:core-ktx:1.9.0'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

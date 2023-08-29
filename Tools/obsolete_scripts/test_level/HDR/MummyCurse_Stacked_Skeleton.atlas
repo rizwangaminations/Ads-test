@@ -1,0 +1,307 @@
+
+MummyCurse_Stacked_Skeleton.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+MummyCurse_Stacked_ParticleFX_00
+  rotate: true
+  xy: 1097, 460
+  size: 196, 96
+  orig: 265, 101
+  offset: 46, 2
+  index: -1
+MummyCurse_Stacked_ParticleFX_01
+  rotate: false
+  xy: 1, 4
+  size: 203, 96
+  orig: 265, 101
+  offset: 41, 2
+  index: -1
+MummyCurse_Stacked_ParticleFX_02
+  rotate: false
+  xy: 1476, 609
+  size: 186, 96
+  orig: 265, 101
+  offset: 47, 2
+  index: -1
+MummyCurse_Stacked_ParticleFX_03
+  rotate: false
+  xy: 1663, 693
+  size: 165, 94
+  orig: 265, 101
+  offset: 52, 4
+  index: -1
+MummyCurse_Stacked_ParticleFX_04
+  rotate: false
+  xy: 1476, 433
+  size: 186, 82
+  orig: 265, 101
+  offset: 39, 5
+  index: -1
+MummyCurse_Stacked_ParticleFX_05
+  rotate: true
+  xy: 1194, 462
+  size: 194, 92
+  orig: 265, 101
+  offset: 36, 4
+  index: -1
+MummyCurse_Stacked_ParticleFX_06
+  rotate: true
+  xy: 807, 434
+  size: 203, 95
+  orig: 265, 101
+  offset: 34, 4
+  index: -1
+MummyCurse_Stacked_ParticleFX_07
+  rotate: true
+  xy: 903, 441
+  size: 198, 97
+  orig: 265, 101
+  offset: 41, 4
+  index: -1
+MummyCurse_Stacked_ParticleFX_08
+  rotate: true
+  xy: 670, 1
+  size: 199, 97
+  orig: 265, 101
+  offset: 40, 4
+  index: -1
+MummyCurse_Stacked_ParticleFX_09
+  rotate: true
+  xy: 768, 30
+  size: 170, 87
+  orig: 265, 101
+  offset: 40, 4
+  index: -1
+MummyCurse_Stacked_ParticleFX_10
+  rotate: true
+  xy: 1382, 467
+  size: 193, 93
+  orig: 265, 101
+  offset: 40, 5
+  index: -1
+MummyCurse_Stacked_ParticleFX_11
+  rotate: true
+  xy: 1287, 466
+  size: 194, 94
+  orig: 265, 101
+  offset: 39, 7
+  index: -1
+MummyCurse_Stacked_ParticleFX_12
+  rotate: true
+  xy: 1001, 439
+  size: 200, 95
+  orig: 265, 101
+  offset: 37, 5
+  index: -1
+MummyCurse_Stacked_ParticleFX_13
+  rotate: false
+  xy: 1476, 516
+  size: 184, 92
+  orig: 265, 101
+  offset: 30, 7
+  index: -1
+MummyCurse_Stacked_ParticleFX_14
+  rotate: false
+  xy: 1475, 706
+  size: 187, 91
+  orig: 265, 101
+  offset: 28, 6
+  index: -1
+MummyCurse_Stacked_ParticleFX_18
+  rotate: false
+  xy: 1254, 661
+  size: 210, 96
+  orig: 265, 101
+  offset: 29, 4
+  index: -1
+MummyCurse_WildStacked_Bg1
+  rotate: false
+  xy: 1, 101
+  size: 220, 240
+  orig: 222, 242
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_Bg2
+  rotate: false
+  xy: 1254, 758
+  size: 220, 265
+  orig: 222, 267
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_Bg3
+  rotate: true
+  xy: 287, 211
+  size: 220, 233
+  orig: 222, 235
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_Bg_1tile
+  rotate: false
+  xy: 521, 201
+  size: 230, 230
+  orig: 265, 265
+  offset: 17, 18
+  index: -1
+MummyCurse_WildStacked_LPalm1
+  rotate: true
+  xy: 205, 1
+  size: 77, 122
+  orig: 79, 124
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_LPalm2
+  rotate: true
+  xy: 1663, 624
+  size: 68, 169
+  orig: 70, 171
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_LSide_Frame
+  rotate: false
+  xy: 1, 358
+  size: 16, 665
+  orig: 18, 667
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_LightRays
+  rotate: false
+  xy: 1475, 798
+  size: 254, 225
+  orig: 265, 265
+  offset: 9, 30
+  index: -1
+MummyCurse_WildStacked_Lightning1
+  rotate: false
+  xy: 1963, 792
+  size: 67, 71
+  orig: 69, 73
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_LightningFX_00
+  rotate: false
+  xy: 35, 638
+  size: 205, 385
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_01
+  rotate: false
+  xy: 241, 638
+  size: 205, 385
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_02
+  rotate: true
+  xy: 1730, 864
+  size: 159, 316
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_03
+  rotate: true
+  xy: 35, 432
+  size: 205, 385
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_04
+  rotate: false
+  xy: 447, 638
+  size: 205, 385
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_05
+  rotate: false
+  xy: 653, 638
+  size: 205, 385
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_06
+  rotate: true
+  xy: 421, 432
+  size: 205, 385
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_07
+  rotate: false
+  xy: 1064, 657
+  size: 189, 366
+  orig: 205, 385
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightningFX_08
+  rotate: false
+  xy: 859, 640
+  size: 204, 383
+  orig: 205, 385
+  offset: 1, 2
+  index: -1
+MummyCurse_WildStacked_Lower_Frame
+  rotate: true
+  xy: 222, 111
+  size: 230, 49
+  orig: 232, 51
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_RPalm1
+  rotate: false
+  xy: 1829, 701
+  size: 91, 86
+  orig: 93, 88
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_RPalm2
+  rotate: true
+  xy: 35, 342
+  size: 89, 251
+  orig: 91, 253
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_RSide_Frame
+  rotate: false
+  xy: 18, 358
+  size: 16, 665
+  orig: 18, 667
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_Upper_Frame
+  rotate: true
+  xy: 752, 201
+  size: 230, 45
+  orig: 232, 47
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_WildText
+  rotate: false
+  xy: 1730, 788
+  size: 232, 75
+  orig: 234, 77
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_X2
+  rotate: false
+  xy: 272, 87
+  size: 200, 123
+  orig: 202, 125
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_X5
+  rotate: false
+  xy: 473, 79
+  size: 196, 121
+  orig: 198, 123
+  offset: 1, 1
+  index: -1
+MummyCurse_WildStacked_lightning2
+  rotate: false
+  xy: 328, 24
+  size: 96, 62
+  orig: 98, 64
+  offset: 1, 1
+  index: -1

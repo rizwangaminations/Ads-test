@@ -1,0 +1,307 @@
+
+tensionSequence_fire_3x1.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tensionSequence1_corner
+  rotate: false
+  xy: 946, 55
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-01
+  rotate: false
+  xy: 1, 1
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-03
+  rotate: false
+  xy: 946, 217
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-05
+  rotate: false
+  xy: 95, 1
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-07
+  rotate: false
+  xy: 946, 180
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-09
+  rotate: false
+  xy: 1040, 217
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-11
+  rotate: false
+  xy: 189, 1
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-13
+  rotate: false
+  xy: 946, 143
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-15
+  rotate: false
+  xy: 1040, 180
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-17
+  rotate: false
+  xy: 1134, 217
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-19
+  rotate: false
+  xy: 283, 1
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-21
+  rotate: false
+  xy: 946, 106
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-23
+  rotate: false
+  xy: 1040, 143
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-25
+  rotate: false
+  xy: 1134, 180
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-27
+  rotate: false
+  xy: 1228, 217
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-29
+  rotate: false
+  xy: 377, 1
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-31
+  rotate: false
+  xy: 946, 69
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-33
+  rotate: false
+  xy: 1040, 106
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-35
+  rotate: false
+  xy: 1134, 143
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-37
+  rotate: false
+  xy: 1228, 180
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-39
+  rotate: false
+  xy: 1322, 217
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_horizon-41
+  rotate: false
+  xy: 471, 1
+  size: 93, 36
+  orig: 93, 36
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-01
+  rotate: false
+  xy: 1, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-03
+  rotate: false
+  xy: 46, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-05
+  rotate: false
+  xy: 91, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-07
+  rotate: false
+  xy: 136, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-09
+  rotate: false
+  xy: 181, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-11
+  rotate: false
+  xy: 226, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-13
+  rotate: false
+  xy: 271, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-15
+  rotate: false
+  xy: 316, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-17
+  rotate: false
+  xy: 361, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-19
+  rotate: false
+  xy: 406, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-21
+  rotate: false
+  xy: 451, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-23
+  rotate: false
+  xy: 496, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-25
+  rotate: false
+  xy: 541, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-27
+  rotate: false
+  xy: 586, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-29
+  rotate: false
+  xy: 631, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-31
+  rotate: false
+  xy: 676, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-33
+  rotate: false
+  xy: 721, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-35
+  rotate: false
+  xy: 766, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-37
+  rotate: false
+  xy: 811, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-39
+  rotate: false
+  xy: 856, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1
+tensionSequence1_vertical-41
+  rotate: false
+  xy: 901, 38
+  size: 44, 215
+  orig: 44, 215
+  offset: 0, 0
+  index: -1

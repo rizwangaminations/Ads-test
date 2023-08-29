@@ -1,0 +1,7 @@
+{
+  "Parse_URL" : "https://megarama.net/Develop-Server/PARSE_APP_NAME/data/Configs/",
+  "PARSE_APP_NAME" : "GameRoot-Develop",
+  "service_account": "firebase-adminsdk-6dlmu@cleopetra-slots-36468229.iam.gserviceaccount.com",
+  "DELTADNA_ENVIRONMENT_KEY": "89856013837732945259413422315759",
+  "DELTADNA_COLLECT_URL": "https://collect16134gmrtb.deltadna.net/collect/api"
+}

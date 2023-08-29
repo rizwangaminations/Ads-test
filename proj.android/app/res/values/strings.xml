@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Test-Game</string>
+    <string name="facebook_app_id">1676410359284208</string>
+    <string name="facebook_client_token">1def24530876d762296701731266e6b1</string>
+    <string name="branch_key_live">key_live_ilxE8auPtv9pl0jxOXmI1gmhsBaiOFe9</string>
+    <string name="branch_key_test">key_test_moEE9fxLDzZff0gxV6rsbemastjgHFxa</string>
+    <string name="branch_uri_scheme">ne46develop</string>
+    <string name="branch_uri_domain">megarama.app.link</string>
+    <string name="branch_uri_alt_domain">megarama-alternate.app.link</string>
+    <string name="ADMob_Key">ca-app-pub-2295405730550795~9128371069</string>
+
+    <!--  deltaDNA push notifications data -->
+    <string name="firebase_sender_id">155548297400</string>
+    <string name="firebase_application_id">1:155548297400:android:c876ecd214ab724aa72c4d</string>
+    <string name="fcm_project_id">cleopetra-slots-36468229</string>
+    <string name="fcm_api_key">AIzaSyCgxZqPSYKo6EOXpDTmnI3wU-2XP8C5eE8</string>
+</resources>

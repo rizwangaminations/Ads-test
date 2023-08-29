@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20938890274",
+    "project_id": "il53-android",
+    "storage_bucket": "il53-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20938890274:android:d78f07ebf9780895b27e7b",
+        "android_client_info": {
+          "package_name": "com.casino.riches.il"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20938890274-bskr8eu6d79nert1eelemqka1s99cent.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUny9rAGg5p3oeNOuNKBLxjUBiRwCMly4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20938890274-bskr8eu6d79nert1eelemqka1s99cent.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

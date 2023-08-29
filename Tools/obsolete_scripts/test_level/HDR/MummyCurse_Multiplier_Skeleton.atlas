@@ -1,0 +1,153 @@
+
+MummyCurse_Multiplier_Skeleton.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+MummyCurse_Stacked_ParticleFX_00
+  rotate: false
+  xy: 1, 103
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_01
+  rotate: false
+  xy: 533, 369
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_02
+  rotate: false
+  xy: 1, 1
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_03
+  rotate: false
+  xy: 267, 103
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_04
+  rotate: false
+  xy: 533, 267
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_05
+  rotate: false
+  xy: 799, 369
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_06
+  rotate: false
+  xy: 267, 1
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_07
+  rotate: false
+  xy: 533, 165
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_08
+  rotate: false
+  xy: 799, 267
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_09
+  rotate: false
+  xy: 1065, 369
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_10
+  rotate: false
+  xy: 533, 63
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_11
+  rotate: false
+  xy: 799, 165
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_12
+  rotate: false
+  xy: 1065, 267
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_13
+  rotate: false
+  xy: 1331, 369
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_14
+  rotate: false
+  xy: 799, 63
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_Stacked_ParticleFX_18
+  rotate: false
+  xy: 1065, 165
+  size: 265, 101
+  orig: 265, 101
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_Bg_1tile
+  rotate: false
+  xy: 1, 205
+  size: 265, 265
+  orig: 265, 265
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_LightRays
+  rotate: false
+  xy: 267, 205
+  size: 265, 265
+  orig: 265, 265
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_WildText
+  rotate: false
+  xy: 1597, 393
+  size: 234, 77
+  orig: 234, 77
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_X2
+  rotate: false
+  xy: 1331, 243
+  size: 202, 125
+  orig: 202, 125
+  offset: 0, 0
+  index: -1
+MummyCurse_WildStacked_X5
+  rotate: false
+  xy: 1065, 41
+  size: 198, 123
+  orig: 198, 123
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,198 @@
+{
+  "GameModeViewData": [
+    {
+      "Name": "FreeSpin",
+      "ReelBG": "reel_bg_custom.png",
+      "ReelBGAnim": "ScaleIn"
+    },
+    {
+      "Name": "Default",
+      "ReelBG": "reel_bg.png"
+    }
+  ],
+  "TileViews": [
+    {
+      "ItemKey": 0,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "SpineAnimationFileName": "MummyCurse_Scatter1_Skeleton",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 1,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "SpineAnimationFileName": "MummyCurse_Scatter2_Skeleton",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 3,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "SpineAnimationFileName": "MummyCurse_Multiplier_Skeleton",
+          "WinBorderAnimation": "MagicalLightning",
+          "SpineAnimationSound": "MummyCurse_Wild_Sound"
+        },
+        "Expanding": {
+          "SpineAnimationFileName": "MummyCurse_1000_Skeleton",
+          "SpineAnimationSound": "MummyCurse_Wild_Sound"
+        }
+      }
+    },
+    {
+      "ItemKey": 4,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "SpineAnimationFileName": "MummyCurse_Multiplier_Skeleton",
+          "WinBorderAnimation": "MagicalLightning",
+          "SpineAnimationSound": "MummyCurse_Wild_Sound"
+        },
+        "Multiplier": {
+          "SpineAnimationFileName": "MummyCurse_Multiplier_Skeleton",
+          "WinBorderAnimation": "MagicalLightning",
+          "SpineAnimationSound": "MummyCurse_X2X5_Sound"
+        }
+      }
+    },
+    {
+      "ItemKey": 5,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "SpineAnimationFileName": "MummyCurse_Stacked_Skeleton",
+          "SpineAnimationSound": "MummyCurse_Wild_Sound"
+        }
+      }
+    },
+    {
+      "ItemKey": 6,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 7,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 8,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 9,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 10,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 11,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 12,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 13,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale",
+          "WinBorderAnimation": "MagicalLightning"
+        }
+      }
+    },
+    {
+      "ItemKey": 14,
+      "Properties": {
+        "Default": {
+          "ProgrammaticAnimation": "Scale"
+        }
+      }
+    }
+  ],
+  "TeaserStrip": 3,
+  "TensionSequence": "tensionSequence_fire_3x1",
+  "Sounds": [
+    {
+      "Default": {
+        "line_wins": "MummyCurse_LineWin_Sound",
+        "triggers": [
+          {
+            "id": 0,
+            "sfx": "MummyCurse_Trigger_Sound"
+          },
+          {
+            "id": 1,
+            "sfx": "MummyCurse_Trigger_Sound"
+          }
+        ],
+        "reel_spin": {
+          "continuation": "continue",
+          "sequence": "in_order",
+          "residual": 8000,
+          "tracks": [
+            "MummyCurse_ReelSpin_Music"
+          ]
+        },
+        "symbol_animation_sounds": [
+          {
+            "id": 0,
+            "sfx": "MummyCurse_Scatter_Sound"
+          },
+          {
+            "id": 1,
+            "sfx": "MummyCurse_Scatter_Sound"
+          }
+        ]
+      }
+    }
+  ],
+  "BigWinData": {
+    "BigWin": 2.8,
+    "MegaWin": 5.6,
+    "MegaramaWin": 22.2
+  }
+}
