@@ -48,7 +48,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/.. \
 					$(LOCAL_PATH)/cpp/ThirdParty/uuid-generator
 
 
-LOCAL_STATIC_LIBRARIES := cc_static
+LOCAL_STATIC_LIBRARIES := cocos_static
 LOCAL_STATIC_LIBRARIES += ext_curl
 LOCAL_STATIC_LIBRARIES += fairygui_static
 
