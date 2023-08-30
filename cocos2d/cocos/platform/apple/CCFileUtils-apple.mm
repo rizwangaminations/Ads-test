@@ -308,8 +308,8 @@ bool FileUtilsApple::removeDirectory(const std::string& path) const
         CCLOGERROR("Fail to remove directory, path is empty!");
         return false;
     }
-
-    if (nftw(path.c_str(),unlink_cb, 64, FTW_DEPTH | FTW_PHYS))
+    const std::string& obfuscatedPath = FileUtils::getInstance()->getObfuscatedPath(path);
+    if (nftw(obfuscatedPath.c_str(),unlink_cb, 64, FTW_DEPTH | FTW_PHYS))
         return false;
     else
         return true;
@@ -378,10 +378,19 @@ bool FileUtils::writeValueMapToFile(const ValueMap& dict, const std::string& ful
     {
         addCCValueToNSDictionary(iter.first, iter.second, nsDict);
     }
-
-    NSString *file = [NSString stringWithUTF8String:fullPath.c_str()];
-    // do it atomically
-    return [nsDict writeToFile:file atomically:YES];
+    NSError* error = nil;
+    NSData* data = [NSPropertyListSerialization dataWithPropertyList:nsDict format:NSPropertyListXMLFormat_v1_0 options:0 error:&error];
+    if (!error)
+    {
+        unsigned char* filedata = (unsigned char*) [data bytes];
+        const size_t dataSize = [data length];
+        Data cData;
+        cData.copy(filedata, dataSize);
+        FileUtils::getInstance()->writeDataToFile(cData, fullPath);
+        cData.clear();
+        return true;
+    }
+    return false;
 }
 
 void FileUtilsApple::valueMapCompact(ValueMap& valueMap) const
@@ -474,13 +483,11 @@ ValueVector FileUtilsApple::getValueVectorFromFile(const std::string& filename) 
 bool FileUtilsApple::createDirectory(const std::string& path) const
 {
     CCASSERT(!path.empty(), "Invalid path");
-    
     if (isDirectoryExist(path))
         return true;
-    
     NSError* error;
-    
-    bool result = [s_fileManager createDirectoryAtPath:[NSString stringWithUTF8String:path.c_str()] withIntermediateDirectories:YES attributes:nil error:&error];
+    const std::string& obfuscatedPath = FileUtils::getInstance()->getObfuscatedPath(path);
+    bool result = [s_fileManager createDirectoryAtPath:[NSString stringWithUTF8String:obfuscatedPath.c_str()] withIntermediateDirectories:YES attributes:nil error:&error];
     
     if(!result && error != nil)
     {

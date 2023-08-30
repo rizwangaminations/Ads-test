@@ -290,7 +290,7 @@ public:
      *
      * @param var True if the particle system removed self on finish.
      */
-    virtual void setAutoRemoveOnFinish(bool var);
+    virtual void setAutoRemoveOnFinish(bool autoRemove);
 
     // mode A
     /** Gets the gravity.

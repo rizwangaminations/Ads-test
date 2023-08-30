@@ -33,6 +33,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -97,6 +98,7 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
     protected void initView() {
         this.setEGLContextClientVersion(2);
         this.setFocusableInTouchMode(true);
+        this.setPreserveEGLContextOnPause(true);
 
         Cocos2dxGLSurfaceView.mCocos2dxGLSurfaceView = this;
         Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper = new Cocos2dxTextInputWrapper(this);
@@ -199,7 +201,18 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
             }
         });
         this.setRenderMode(RENDERMODE_WHEN_DIRTY);
-        //super.onPause();
+//        super.onPause();
+    }
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.d("umairTest", "surfaceDestroyed");
+        super.surfaceDestroyed(holder);
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder){
+        Log.d("umairTest", "surfaceCreated");
+        super.surfaceCreated(holder);
     }
 
     @Override

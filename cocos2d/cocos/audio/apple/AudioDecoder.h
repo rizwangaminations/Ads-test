@@ -27,6 +27,7 @@
 
 #include <stdint.h>
 #import <AudioToolbox/ExtendedAudioFile.h>
+#import <AudioToolbox/AudioFile.h>
 
 namespace cocos2d { namespace experimental {
 
@@ -105,10 +106,17 @@ public:
      * @note Currently we only support 1 or 2 channels.
      */
     uint32_t getChannelCount() const;
+    
+private:
+    NSData* getFileData(const char* path);
+    static OSStatus audioFileReadProc(void *inClientData, SInt64 inPosition, UInt32 requestCount, void *buffer, UInt32 *actualCount);
+    static SInt64 audioFileGetSizeProc(void *inClientData);
 
 private:
     bool _isOpened;
     ExtAudioFileRef _extRef;
+    NSData*  _audioFileData;
+    AudioFileID _audioFileID;
     uint32_t _totalFrames;
     uint32_t _bytesPerFrame;
     uint32_t _sampleRate;

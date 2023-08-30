@@ -1082,7 +1082,8 @@ void Label::enableGlow(const Color4B& glowColor)
 
 void Label::enableOutline(const Color4B& outlineColor,int outlineSize /* = -1 */)
 {
-    CCASSERT(_currentLabelType == LabelType::STRING_TEXTURE || _currentLabelType == LabelType::TTF, "Only supported system font and TTF!");
+    //TODO: umair Revert
+//    CCASSERT(_currentLabelType == LabelType::STRING_TEXTURE || _currentLabelType == LabelType::TTF, "Only supported system font and TTF!");
 
     if (outlineSize > 0 || _currLabelEffect == LabelEffect::OUTLINE)
     {
@@ -1979,7 +1980,8 @@ void Label::updateDisplayedOpacity(GLubyte parentOpacity)
 // that's fine but it should be documented
 void Label::setTextColor(const Color4B &color)
 {
-    CCASSERT(_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::STRING_TEXTURE, "Only supported system font and ttf!");
+    //TODO: umair Revert
+//    CCASSERT(_currentLabelType == LabelType::TTF || _currentLabelType == LabelType::STRING_TEXTURE, "Only supported system font and ttf!");
 
     if (_currentLabelType == LabelType::STRING_TEXTURE && _textColor != color)
     {

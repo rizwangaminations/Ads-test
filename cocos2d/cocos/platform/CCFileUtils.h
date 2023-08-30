@@ -120,6 +120,7 @@ public:
 };
 
 /** Helper class to handle file operations. */
+class DataEncryptor;
 class CC_DLL FileUtils
 {
 public:
@@ -127,7 +128,7 @@ public:
      *  Gets the instance of FileUtils.
      */
     static FileUtils* getInstance();
-
+    
     /**
      *  Destroys the instance of FileUtils.
      */
@@ -493,8 +494,15 @@ public:
      *  Sets writable path.
      */
     virtual void setWritablePath(const std::string& writablePath);
-    virtual void setProjectKey(const std::string& key);
+    virtual void setResourceObfuscationKey(const std::string& key);
+    virtual void initializeEncryptor(const std::string& key, const std::string& iv);
+    virtual void setExtensionObfuscationKey(const std::string& key);
+    virtual std::string decryptString(std::string& ciphertext) const;
+    virtual void enableObfuscationTesting();
 
+    
+    virtual const std::string& getResourceObfuscationKey() const;
+    virtual const std::string& getExtensionObfuscationKey() const;
     /**
      *  Sets whether to pop-up a message box when failed to load an image.
      */
@@ -858,6 +866,11 @@ public:
      */
     virtual std::string getNewFilename(const std::string &filename) const;
     std::string getCachedFilePath(const std::string& fileName) const;
+    std::string getObfuscatedPath(const std::string& path) const;
+    bool isWritablePath(const std::string& path) const;
+    bool renameFile(const std::string& oldFileName, const std::string& newFileName);
+    FILE* fopenCustom(const std::string& filename, const std::string& mode);
+    size_t fwriteCustom(const unsigned char* buffer, size_t size, size_t nitems, FILE * stream);
 
 protected:
     /**
@@ -918,8 +931,10 @@ protected:
      */
     virtual std::string fullPathForDirectory(const std::string &dirname) const;
     
-    std::string getHashedString(std::string sourceString) const;
-    std::string getObfuscatedPath(const std::string& path) const;
+    std::string getObfuscatedPathInternal(const std::string& path) const;
+    std::string getHashedStringWithKey(const std::string& sourceString, const std::string& obfuscationKey, const int length) const;
+    std::string getHashedString(const std::string& sourceString, const int length = 16) const;
+    std::string getHashedExtension(const std::string& sourceString) const;
 
     /**
     * mutex used to protect fields. 
@@ -978,7 +993,12 @@ protected:
      * Writable path.
      */
     std::string _writablePath;
-    std::string _projectKey;
+    std::string _resourceObfuscationKey;
+    std::string _extensionObfuscationKey;
+    std::string _cryptedKey;
+    std::string _cryptedIvKey;
+    DataEncryptor* _dataEncryptor;
+    bool        _debugObfuscation;
     
     mutable std::unordered_map<std::string, std::string> _hashedStrings;
     mutable std::unordered_set<std::string> _hashCache;

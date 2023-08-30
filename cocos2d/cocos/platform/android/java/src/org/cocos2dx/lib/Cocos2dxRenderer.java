@@ -25,6 +25,7 @@ THE SOFTWARE.
 package org.cocos2dx.lib;
 
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -71,6 +72,7 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(final GL10 GL10, final EGLConfig EGLConfig) {
+        Log.d("umairTest", "Cocos2dxRenderer::onSurfaceCreated");
         Cocos2dxRenderer.nativeInit(this.mScreenWidth, this.mScreenHeight);
         this.mLastTickInNanoSeconds = System.nanoTime();
         mNativeInitCompleted = true;

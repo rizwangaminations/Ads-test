@@ -49,7 +49,6 @@ import org.cocos2dx.lib.Cocos2dxHelper.Cocos2dxHelperListener;
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLContext;
 
 public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelperListener {
     // ===========================================================
@@ -73,13 +72,16 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     private boolean showVirtualButton = false;
     private boolean gainAudioFocus = false;
     private boolean paused = true;
+    protected  boolean isNativeLibLoaded = false;
 
-    static {
-        // should change to use real .so name, it is just a sample
-        try {
+    static
+    {
+        try
+        {
             System.loadLibrary("cocos2dcpp");
         }
-        catch (java.lang.UnsatisfiedLinkError e) {
+        catch (java.lang.UnsatisfiedLinkError e)
+        {
             System.exit(1);
         }
     }
@@ -124,8 +126,10 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
             Bundle bundle = ai.metaData;
             String libName = bundle.getString("android.app.lib_name");
             System.loadLibrary(libName);
+            isNativeLibLoaded = true;
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
     
@@ -136,7 +140,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d("umairTest", "Cocos2dxActivity::onCreate");
         // Workaround in https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508
         if (!isTaskRoot()) {
             // Android launched another instance of the root activity into an existing task
@@ -144,6 +148,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
             //  at the top of the stack (ie: the last state of this task)
             finish();
             Log.w(TAG, "[Workaround] Ignore the activity started from icon!");
+            Log.d("umairTest", "Cocos2dxActivity::onCreate::Workaround");
             return;
         }
 
@@ -319,6 +324,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 
     
     public Cocos2dxGLSurfaceView onCreateView() {
+        Log.d("umairTest", "Cocos2dxActivity::Cocos2dxGLSurfaceView::create");
         Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
         //this line is need on some device if we specify an alpha bits
         if(this.mGLContextAttrs[3] > 0) glSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);

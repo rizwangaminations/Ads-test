@@ -1,4 +1,4 @@
-﻿/****************************************************************************
+/****************************************************************************
 Copyright (c) 2013-2016 Chukong Technologies Inc.
 Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
@@ -40,26 +40,26 @@ THE SOFTWARE.
 #define CC_CREATE_NO_PARAM_NO_INIT(varType)\
 public: \
     static inline varType *create(void){ \
-    varType *var = new (std::nothrow) varType();\
-    if (var)\
+    varType *variable = new (std::nothrow) varType();\
+    if (variable)\
 {\
-    var->autorelease();\
-    return var;\
+    variable->autorelease();\
+    return variable;\
 }\
-    CC_SAFE_DELETE(var);\
+    CC_SAFE_DELETE(variable);\
     return nullptr;\
 }
 
 #define CC_CREATE_NO_PARAM(varType)\
 public: \
     static inline varType *create(void){ \
-    varType *var = new (std::nothrow) varType();\
-    if (var && var->init())\
+    varType *variable = new (std::nothrow) varType();\
+    if (variable && variable->init())\
 {\
-    var->autorelease();\
-    return var;\
+    variable->autorelease();\
+    return variable;\
 }\
-    CC_SAFE_DELETE(var);\
+    CC_SAFE_DELETE(variable);\
     return nullptr;\
 }
 

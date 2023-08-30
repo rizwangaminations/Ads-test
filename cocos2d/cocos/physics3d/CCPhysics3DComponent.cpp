@@ -40,7 +40,7 @@ Physics3DComponent::~Physics3DComponent()
 
 std::string& Physics3DComponent::getPhysics3DComponentName()
 {
-    static std::string comName = "___Physics3DComponent___";
+    static std::string comName = "Physics3DComponent";
     return comName;
 }
 

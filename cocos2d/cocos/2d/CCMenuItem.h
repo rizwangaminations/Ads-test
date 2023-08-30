@@ -552,7 +552,7 @@ public:
     virtual void activate() override;
     virtual void selected() override;
     virtual void unselected() override;
-    virtual void setEnabled(bool var) override;
+    virtual void setEnabled(bool enable) override;
     virtual void cleanup() override;
     
 CC_CONSTRUCTOR_ACCESS:

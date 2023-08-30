@@ -42,6 +42,10 @@ THE SOFTWARE.
 #endif
 #include <sys/stat.h>
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "platform/DataEncryptor.h"
+#endif
+
 #define DECLARE_GUARD std::lock_guard<std::recursive_mutex> mutexGuard(_mutex)
 
 NS_CC_BEGIN
@@ -555,7 +559,10 @@ void FileUtils::setDelegate(FileUtils *delegate)
 
 FileUtils::FileUtils()
     : _writablePath("")
-    , _projectKey("")
+    , _resourceObfuscationKey("")
+    , _extensionObfuscationKey("")
+    , _dataEncryptor(nullptr)
+    , _debugObfuscation(false)
 {
 }
 
@@ -583,6 +590,7 @@ void FileUtils::writeStringToFile(std::string dataStr, const std::string& fullPa
 
 bool FileUtils::writeDataToFile(const Data& data, const std::string& fullPath) const
 {
+    
     size_t size = 0;
     const char* mode = "wb";
 
@@ -592,18 +600,30 @@ bool FileUtils::writeDataToFile(const Data& data, const std::string& fullPath) c
     do
     {
         // Read the file from hardware
-        FILE *fp = fopen(fileutils->getSuitableFOpen(fullPath).c_str(), mode);
+        FILE *fp = fileutils->fopenCustom(fileutils->getSuitableFOpen(fullPath).c_str(), mode);
         CC_BREAK_IF(!fp);
         size = data.getSize();
-
-        fwrite(data.getBytes(), size, 1, fp);
-
+        fileutils->fwriteCustom(data.getBytes(), size, 1, fp);
         fclose(fp);
-
         return true;
     } while (0);
 
     return false;
+}
+
+size_t FileUtils::fwriteCustom(const unsigned char* buffer, size_t size, size_t nitems, FILE * stream)
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if( _dataEncryptor )
+    {
+        const std::string& dataString = std::string(reinterpret_cast<const char*>(buffer), size);
+        const std::string& encryptDataString = _dataEncryptor->encrypt(dataString);
+        const unsigned char* encryptedBuffer = (const unsigned char *)encryptDataString.c_str();
+        size = encryptDataString.size();
+        return fwrite(encryptedBuffer, size, nitems, stream);
+    }
+#endif
+    return fwrite(buffer, size, nitems, stream);
 }
 
 void FileUtils::writeDataToFile(Data data, const std::string& fullPath, std::function<void(bool)> callback) const
@@ -688,16 +708,37 @@ FileUtils::Status FileUtils::getContents(const std::string& filename, ResizableB
 
     size_t size = statBuf.st_size;
 
-    buffer->resize(size);
-    size_t readsize = fread(buffer->buffer(), 1, size, fp);
+    std::string fileData;
+    fileData.resize(size);
+    size_t readSize = fread(&fileData[0], 1, size, fp);
     fclose(fp);
-
-    if (readsize < size) {
-        buffer->resize(readsize);
+    if(readSize < size)
+    {
         return Status::ReadFailed;
     }
-
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if( _dataEncryptor)
+    {
+        fileData = decryptString(fileData);
+        size = fileData.size();
+    }
+#endif
+    buffer->resize(size);
+    memcpy(buffer->buffer(), fileData.c_str(), size);
+    
     return Status::OK;
+}
+
+std::string FileUtils::decryptString(std::string& ciphertext) const
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if( _dataEncryptor )
+    {
+        return _dataEncryptor->decrypt(ciphertext);
+    }
+#endif
+    return ciphertext;
 }
 
 unsigned char* FileUtils::getFileData(const std::string& filename, const char* mode, ssize_t *size) const
@@ -759,7 +800,8 @@ unsigned char* FileUtils::getFileDataFromZip(const std::string& zipFilePath, con
     return buffer;
 }
 
-void FileUtils::writeValueMapToFile(ValueMap dict, const std::string& fullPath, std::function<void(bool)> callback) const
+void FileUtils::writeValueMapToFile(ValueMap dict, const std::string& fullPath,
+                                    std::function<void(bool)> callback) const
 {
     
     performOperationOffthread([fullPath](const ValueMap& dictIn) -> bool {
@@ -767,7 +809,8 @@ void FileUtils::writeValueMapToFile(ValueMap dict, const std::string& fullPath, 
     }, std::move(callback), std::move(dict));
 }
 
-void FileUtils::writeValueVectorToFile(ValueVector vecData, const std::string& fullPath, std::function<void(bool)> callback) const
+void FileUtils::writeValueVectorToFile(ValueVector vecData, const std::string& fullPath,
+                                       std::function<void(bool)> callback) const
 {
     performOperationOffthread([fullPath] (const ValueVector& vecDataIn) -> bool {
         return FileUtils::getInstance()->writeValueVectorToFile(vecDataIn, fullPath);
@@ -794,7 +837,9 @@ std::string FileUtils::getNewFilename(const std::string &filename) const
     return newFileName;
 }
 
-std::string FileUtils::getPathForFilename(const std::string& filename, const std::string& resolutionDirectory, const std::string& searchPath) const
+std::string FileUtils::getPathForFilename(const std::string& filename,
+                                          const std::string& resolutionDirectory,
+                                          const std::string& searchPath) const
 {
     std::string file = filename;
     std::string file_path = "";
@@ -815,29 +860,65 @@ std::string FileUtils::getPathForFilename(const std::string& filename, const std
     return path;
 }
 
-std::string FileUtils::getHashedString(std::string sourceString) const
+std::string FileUtils::getHashedString(const std::string& sourceString, const int length) const
 {
-    // Already Cached ?
-    auto cacheIter = _hashedStrings.find(sourceString);
+    std::string obfuscationKey = getInstance()->_resourceObfuscationKey;
+    if (!obfuscationKey.empty())
+    {
+        return getHashedStringWithKey(sourceString, obfuscationKey, length);
+    }
+    return sourceString;
+}
+
+std::string FileUtils::getHashedExtension(const std::string& sourceString) const
+{
+    std::string obfuscationKey = getInstance()->_extensionObfuscationKey;
+    if (!obfuscationKey.empty())
+    {
+        const int extensionLength = 5;
+        const std::string hashedExtension = getHashedStringWithKey(sourceString, obfuscationKey, extensionLength);
+        return hashedExtension;
+    }
+    return sourceString;
+}
+
+std::string FileUtils::getHashedStringWithKey(const std::string& sourceString, const std::string& obfuscationKey, const int length) const
+{
+    if (sourceString.empty())
+    {
+        return sourceString;
+    }
+    
+    const std::string& sourceStringWithKey = sourceString + obfuscationKey;
+    auto cacheIter = _hashedStrings.find(sourceStringWithKey);
     if(cacheIter != _hashedStrings.end())
     {
         return cacheIter->second;
     }
+    
     if (std::find(_hashCache.begin(), _hashCache.end(), sourceString) != _hashCache.end())
     {
         return sourceString;
     }
-    sourceString = sourceString + getInstance()->_projectKey;
     Data data;
-    size_t size = sourceString.size();
-    data.copy((const unsigned char *)sourceString.c_str(), size);
-    std::string md5Hash = utils::getDataMD5Hash(data);
-    _hashedStrings.emplace(sourceString, md5Hash);
+    size_t size = sourceStringWithKey.size();
+    data.copy((const unsigned char *)sourceStringWithKey.c_str(), size);
+    std::string md5Hash;
+    if (_debugObfuscation)
+    {
+        md5Hash = sourceString + "_OBF";
+    }
+    else
+    {
+        md5Hash = utils::getDataMD5Hash(data);
+        md5Hash = md5Hash.substr (0,length);
+    }
+    _hashedStrings[sourceStringWithKey] = md5Hash;
     _hashCache.insert(md5Hash);
     return md5Hash;
 }
 
-std::string FileUtils::getObfuscatedPath(const std::string& path) const
+std::string FileUtils::getObfuscatedPathInternal(const std::string& path) const
 {
     if (path.empty())
     {
@@ -848,23 +929,34 @@ std::string FileUtils::getObfuscatedPath(const std::string& path) const
     std::string subpath = path;
     while (subpath.size() > 0)
     {
+        bool addDelimeter = false;
         size_t position = subpath.find("/");
         std::string token = subpath.substr(0, position);
         if (position != subpath.npos)
         {
+            addDelimeter = true;
             subpath = subpath.substr(position+1, subpath.size());
         }
         else
         {
             subpath = "";
-        }
-        
+        }        
         size_t extentionIndex = token.find_last_of(".");
         if (extentionIndex != std::string::npos )
         {
-            std::string fileName = token.substr(0, extentionIndex);
-            std::string extension = token.substr(extentionIndex);
-            obfuscatedPath = obfuscatedPath + getHashedString(fileName) + extension;
+            const std::string fileName = token.substr(0, extentionIndex);
+            const std::string extension = token.substr(extentionIndex);
+            const std::string extensionName = extension.substr(1);
+            
+            const std::string hashedFileName = getHashedString(fileName);
+            const std::string hashedExtension = getHashedExtension(extensionName);
+            
+            obfuscatedPath = obfuscatedPath + hashedFileName + "." + hashedExtension;
+            
+            if (subpath != "")
+            {
+                obfuscatedPath = obfuscatedPath + delimeter;
+            }
         }
         else if ((token + "/") == _defaultResRootPath && obfuscatedPath.empty())
         {
@@ -872,10 +964,59 @@ std::string FileUtils::getObfuscatedPath(const std::string& path) const
         }
         else
         {
-            obfuscatedPath = obfuscatedPath + getHashedString(token) + delimeter;
+            obfuscatedPath = obfuscatedPath + getHashedString(token);
+            if (addDelimeter)
+            {
+                obfuscatedPath += delimeter;
+            }            
         }
     }
     return obfuscatedPath;
+}
+
+std::string FileUtils::getObfuscatedPath(const std::string& fullPath) const
+{
+    if ((_resourceObfuscationKey.empty() && _extensionObfuscationKey.empty()) || fullPath.empty())
+    {
+        return fullPath;
+    }
+    std::string finalPathString;
+    const std::string& serverPath = getWritablePath();
+    size_t serverPathPos = fullPath.find(serverPath.c_str());
+    
+    if( serverPathPos != std::string::npos)
+    {
+        const int serverPathLenth = (int)serverPath.length();
+        std::string pathSubString = fullPath;
+        pathSubString.erase(serverPathPos, serverPathLenth);
+        const std::string& obfuscatedSubString = getObfuscatedPathInternal(pathSubString);
+        finalPathString = serverPath + obfuscatedSubString;
+    }
+    else
+    {
+        finalPathString = getObfuscatedPathInternal(fullPath);
+    }
+    return finalPathString;
+}
+
+bool FileUtils::isWritablePath(const std::string& path) const
+{
+    const std::string& serverPath = getWritablePath();
+    size_t serverPathPos = path.find(serverPath.c_str());
+    return ( serverPathPos != std::string::npos );
+}
+
+bool FileUtils::renameFile(const std::string& oldFileName, const std::string& newFileName)
+{
+    const std::string& obfOldFileName = getObfuscatedPath(oldFileName);
+    const std::string& obfNewFileName = getObfuscatedPath(newFileName);
+    return std::rename(obfOldFileName.c_str(), obfNewFileName.c_str());
+}
+
+FILE* FileUtils::fopenCustom(const std::string& filename, const std::string& mode)
+{
+    const std::string& obfFileName = getObfuscatedPath(filename);
+    return fopen(obfFileName.c_str(), mode.c_str());
 }
 
 std::string FileUtils::fullPathForFilename(const std::string &filename) const
@@ -890,7 +1031,7 @@ std::string FileUtils::fullPathForFilename(const std::string &filename) const
 
     if (isAbsolutePath(filename))
     {
-        return filename;
+        return isWritablePath(filename) ? getObfuscatedPath(filename) : filename;
     }
     
     // Already Cached ?
@@ -909,30 +1050,18 @@ std::string FileUtils::fullPathForFilename(const std::string &filename) const
     {
         for (const auto& resolutionIt : _searchResolutionsOrderArray)
         {
-            if (getInstance()->_projectKey != "")
-            {
-                std::string obfuscatedFileName = newFilename;
-                std::string obfuscatedSearchPath = searchIt;
-                if (!isAbsolutePath(searchIt) ||
-                    (!_defaultResRootPath.empty() && searchIt.find(_defaultResRootPath) == 0))
-                {
-                    obfuscatedFileName = getInstance()->getObfuscatedPath(newFilename);
-                    obfuscatedSearchPath = getInstance()->getObfuscatedPath(searchIt);
-                }
-                fullpath = this->getPathForFilename(obfuscatedFileName, resolutionIt, obfuscatedSearchPath);
-            }
-            else
-            {
-                fullpath = this->getPathForFilename(newFilename, resolutionIt, searchIt);
-            }
-
+            const bool isAbsolute = isAbsolutePath(searchIt);
+            const bool shouldObfuscate = ((!isAbsolute || (isAbsolute && isWritablePath(searchIt)) ) ||
+                                          (!_defaultResRootPath.empty() && searchIt.find(_defaultResRootPath) == 0));
+            const std::string& fileNameToSearch = shouldObfuscate ? getObfuscatedPath(newFilename) : newFilename;
+            const std::string& searchPathToAdd = shouldObfuscate ? getObfuscatedPath(searchIt) : searchIt;
+            fullpath = this->getPathForFilename(fileNameToSearch, resolutionIt, searchPathToAdd);
             if (!fullpath.empty())
             {
                 // Using the filename passed in as key.
                 _fullPathCache.emplace(filename, fullpath);
                 return fullpath;
             }
-
         }
     }
 
@@ -1079,10 +1208,44 @@ void FileUtils::setWritablePath(const std::string& writablePath)
     _writablePath = writablePath;
 }
 
-void FileUtils::setProjectKey(const std::string& key)
+void FileUtils::enableObfuscationTesting()
+{
+    _debugObfuscation = true;
+}
+
+void FileUtils::setResourceObfuscationKey(const std::string& key)
 {
     DECLARE_GUARD;
-    _projectKey = key;
+    _resourceObfuscationKey = key;
+}
+
+const std::string& FileUtils::getResourceObfuscationKey() const
+{
+    DECLARE_GUARD;
+    return _resourceObfuscationKey;
+}
+
+const std::string& FileUtils::getExtensionObfuscationKey() const
+{
+    DECLARE_GUARD;
+    return _extensionObfuscationKey;
+}
+
+void FileUtils::initializeEncryptor(const std::string& key, const std::string& iv)
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if(!key.empty() && !iv.empty())
+    {
+        _dataEncryptor = new DataEncryptor(key, iv);
+    }
+#endif
+}
+
+void FileUtils::setExtensionObfuscationKey(const std::string& key)
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    _extensionObfuscationKey = key;
+#endif
 }
 
 const std::string FileUtils::getDefaultResourceRootPath() const
@@ -1231,7 +1394,7 @@ bool FileUtils::isFileExist(const std::string& filename, bool checkNative) const
     }
     if (isAbsolutePath(fileName))
     {
-        fileExist = isFileExistInternal(fileName);
+        fileExist = isWritablePath(filename) ?  isFileExistInternal(getObfuscatedPath(filename)) : isFileExistInternal(filename);
     }
     else
     {
@@ -1265,28 +1428,29 @@ bool FileUtils::isAbsolutePath(const std::string& path) const
 bool FileUtils::isDirectoryExist(const std::string& dirPath) const
 {
     CCASSERT(!dirPath.empty(), "Invalid path");
-    
     DECLARE_GUARD;
-
     if (isAbsolutePath(dirPath))
     {
-        return isDirectoryExistInternal(dirPath);
+        return isWritablePath(dirPath) ?  isDirectoryExistInternal(getObfuscatedPath(dirPath)) :
+        isDirectoryExistInternal(dirPath);
     }
-
     // Already Cached ?
     auto cacheIter = _fullPathCacheDir.find(dirPath);
     if( cacheIter != _fullPathCacheDir.end() )
     {
         return isDirectoryExistInternal(cacheIter->second);
     }
-
     std::string fullpath;
     for (const auto& searchIt : _searchPathArray)
     {
         for (const auto& resolutionIt : _searchResolutionsOrderArray)
         {
-            // searchPath + file_path + resourceDirectory
-            fullpath = fullPathForDirectory(searchIt + dirPath + resolutionIt);
+            const bool isAbsolute = isAbsolutePath(searchIt);
+            const bool shouldObfuscate = ((!isAbsolute || (isAbsolute && isWritablePath(searchIt)) ) ||
+                                          (!_defaultResRootPath.empty() && searchIt.find(_defaultResRootPath) == 0));
+            const std::string& dirToSearch = shouldObfuscate ? getObfuscatedPath(dirPath) : dirPath;
+            const std::string& searchPathToAdd = shouldObfuscate ? getObfuscatedPath(searchIt) : searchIt;
+            fullpath = fullPathForDirectory(searchPathToAdd + dirToSearch + resolutionIt);
             if (isDirectoryExistInternal(fullpath))
             {
                 _fullPathCacheDir.emplace(dirPath, fullpath);
@@ -1327,7 +1491,8 @@ void FileUtils::removeFile(const std::string &filepath, std::function<void (bool
     }, std::move(callback));
 }
 
-void FileUtils::renameFile(const std::string &path, const std::string &oldname, const std::string &name, std::function<void(bool)> callback) const
+void FileUtils::renameFile(const std::string &path, const std::string &oldname,
+                           const std::string &name, std::function<void(bool)> callback) const
 {
     performOperationOffthread([path, oldname, name]() -> bool {
         return FileUtils::getInstance()->renameFile(path, oldname, name);
@@ -1335,7 +1500,8 @@ void FileUtils::renameFile(const std::string &path, const std::string &oldname, 
                                 
 }
 
-void FileUtils::renameFile(const std::string &oldfullpath, const std::string &newfullpath, std::function<void(bool)> callback) const
+void FileUtils::renameFile(const std::string &oldfullpath, const std::string &newfullpath,
+                           std::function<void(bool)> callback) const
 {
     performOperationOffthread([oldfullpath, newfullpath]() {
         return FileUtils::getInstance()->renameFile(oldfullpath, newfullpath);
@@ -1350,7 +1516,8 @@ void FileUtils::getFileSize(const std::string &filepath, std::function<void(long
     }, std::move(callback));
 }
 
-void FileUtils::listFilesAsync(const std::string& dirPath, std::function<void(std::vector<std::string>)> callback) const
+void FileUtils::listFilesAsync(const std::string& dirPath,
+                               std::function<void(std::vector<std::string>)> callback) const
 {
     auto fullPath = fullPathForDirectory(dirPath);
     performOperationOffthread([fullPath]() {
@@ -1358,7 +1525,8 @@ void FileUtils::listFilesAsync(const std::string& dirPath, std::function<void(st
     }, std::move(callback));
 }
 
-void FileUtils::listFilesRecursivelyAsync(const std::string& dirPath, std::function<void(std::vector<std::string>)> callback) const
+void FileUtils::listFilesRecursivelyAsync(const std::string& dirPath,
+                                          std::function<void(std::vector<std::string>)> callback) const
 {
     auto fullPath = fullPathForDirectory(dirPath);
     performOperationOffthread([fullPath]() {
@@ -1556,7 +1724,8 @@ bool FileUtils::removeDirectory(const std::string& path) const
 
 bool FileUtils::removeFile(const std::string &path) const
 {
-    if (remove(path.c_str())) {
+    const std::string& obfuscatedPath = getObfuscatedPath(path);
+    if (remove(obfuscatedPath.c_str())) {
         return false;
     } else {
         return true;
@@ -1596,14 +1765,17 @@ long FileUtils::getFileSize(const std::string &filepath) const
 {
     CCASSERT(!filepath.empty(), "Invalid path");
 
-    std::string fullpath = filepath;
+    std::string fullpath;
     if (!isAbsolutePath(filepath))
     {
         fullpath = fullPathForFilename(filepath);
         if (fullpath.empty())
             return 0;
     }
-
+    else
+    {
+        fullpath = getObfuscatedPath(filepath);
+    }
     struct stat info;
     // Get data associated with "crt_stat.c":
     int result = stat(fullpath.c_str(), &info);

@@ -148,10 +148,10 @@ protected: varType varName; public: virtual const varType& get##funName(void) co
  *            If you need protected or private, please declare.
  */
 #define CC_PROPERTY(varType, varName, funName)\
-protected: varType varName; public: virtual varType get##funName(void) const; virtual void set##funName(varType var);
+protected: varType varName; public: virtual varType get##funName(void) const; virtual void set##funName(varType variable);
 
 #define CC_PROPERTY_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName; public: virtual const varType& get##funName(void) const; virtual void set##funName(const varType& var);
+protected: varType varName; public: virtual const varType& get##funName(void) const; virtual void set##funName(const varType& variable);
 
 /** @def CC_SYNTHESIZE_READONLY 
  * It is used to declare a protected variable. We can use getter to read the variable.
@@ -182,19 +182,19 @@ protected: varType varName; public: virtual inline const varType& get##funName(v
  *            If you need protected or private, please declare.
  */
 #define CC_SYNTHESIZE(varType, varName, funName)\
-protected: varType varName; public: virtual inline varType get##funName(void) const { return varName; } virtual inline void set##funName(varType var){ varName = var; }
+protected: varType varName; public: virtual inline varType get##funName(void) const { return varName; } virtual inline void set##funName(varType variable){ varName = variable; }
 
 #define CC_SYNTHESIZE_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName; public: virtual inline const varType& get##funName(void) const { return varName; } virtual inline void set##funName(const varType& var){ varName = var; }
+protected: varType varName; public: virtual inline const varType& get##funName(void) const { return varName; } virtual inline void set##funName(const varType& variable){ varName = variable; }
 
 #define CC_SYNTHESIZE_RETAIN(varType, varName, funName)    \
-private: varType varName; public: virtual inline varType get##funName(void) const { return varName; } virtual inline void set##funName(varType var) \
+private: varType varName; public: virtual inline varType get##funName(void) const { return varName; } virtual inline void set##funName(varType variable) \
 { \
-    if (varName != var) \
+    if (varName != variable) \
     { \
-        CC_SAFE_RETAIN(var); \
+        CC_SAFE_RETAIN(variable); \
         CC_SAFE_RELEASE(varName); \
-        varName = var; \
+        varName = variable; \
     } \
 } 
 
