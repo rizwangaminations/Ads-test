@@ -151,8 +151,8 @@ LogMessage& LogMessage::operator<<(const char* value) {
 // Since this is just for logging, we don't care if the current locale changes
 // the results -- in fact, we probably prefer that.  So we use snprintf()
 // instead of Simple*toa().
-#undef EAM_OPERATOR
-#define EAM_OPERATOR(TYPE, FORMAT)                       \
+#undef DECLARE_STREAM_OPERATOR
+#define DECLARE_STREAM_OPERATOR(TYPE, FORMAT)                       \
   LogMessage& LogMessage::operator<<(TYPE value) {                  \
     /* 128 bytes should be big enough for any of the primitive */   \
     /* values which we print with this, but well use snprintf() */  \
@@ -165,13 +165,13 @@ LogMessage& LogMessage::operator<<(const char* value) {
     return *this;                                                   \
   }
 
-EAM_OPERATOR(char         , "%c" )
-EAM_OPERATOR(int          , "%d" )
-EAM_OPERATOR(uint         , "%u" )
-EAM_OPERATOR(long         , "%ld")
-EAM_OPERATOR(unsigned long, "%lu")
-EAM_OPERATOR(double       , "%g" )
-#undef EAM_OPERATOR
+DECLARE_STREAM_OPERATOR(char         , "%c" )
+DECLARE_STREAM_OPERATOR(int          , "%d" )
+DECLARE_STREAM_OPERATOR(uint         , "%u" )
+DECLARE_STREAM_OPERATOR(long         , "%ld")
+DECLARE_STREAM_OPERATOR(unsigned long, "%lu")
+DECLARE_STREAM_OPERATOR(double       , "%g" )
+#undef DECLARE_STREAM_OPERATOR
 
 LogMessage::LogMessage(LogLevel level, const char* filename, int line)
   : level_(level), filename_(filename), line_(line) {}

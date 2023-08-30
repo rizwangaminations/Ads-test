@@ -4,8 +4,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'com.google.gms.google-services'
 
-apply from: '../../Tools/ci_helper.gradle'
-
 android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
     buildToolsVersion PROP_BUILD_TOOLS_VERSION.toString()
