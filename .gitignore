@@ -341,7 +341,6 @@ GameCommonResources/Script/config.pyc
 
 
 com_crashlytics_export_strings.xml
-Resources/*
 *.iml
 proj.android-studio/.idea
 proj.android-studio/app/libs

@@ -1,5 +1,0 @@
-{
-    "prefix" : "___",
-    "postfix" : "___",
-    "excluded_dir" : ["cocos2d/","sqlite3/"]
-}
